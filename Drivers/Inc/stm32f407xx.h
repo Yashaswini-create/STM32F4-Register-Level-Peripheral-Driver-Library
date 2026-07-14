@@ -40,7 +40,7 @@ typedef struct
     volatile uint32_t LCKR;
     volatile uint32_t AFR[2];
 
-} GPIO_RegDef_t;
+} GPIO_TypeDef;
 
 /* ================= RCC Register Definition ================= */
 
@@ -59,16 +59,16 @@ typedef struct
     uint32_t RESERVED1[2];
     volatile uint32_t AHB1ENR;
 
-} RCC_RegDef_t;
+} RCC_TypeDef;
 
 /* ================= Peripheral Definitions ================= */
 
-#define GPIOA ((GPIO_RegDef_t *)GPIOA_BASEADDR)
-#define GPIOB ((GPIO_RegDef_t *)GPIOB_BASEADDR)
-#define GPIOC ((GPIO_RegDef_t *)GPIOC_BASEADDR)
-#define GPIOD ((GPIO_RegDef_t *)GPIOD_BASEADDR)
-#define GPIOE ((GPIO_RegDef_t *)GPIOE_BASEADDR)
+#define GPIOA ((GPIO_TypeDef *)GPIOA_BASEADDR)
+#define GPIOB ((GPIO_TypeDef *)GPIOB_BASEADDR)
+#define GPIOC ((GPIO_TypeDef *)GPIOC_BASEADDR)
+#define GPIOD ((GPIO_TypeDef *)GPIOD_BASEADDR)
+#define GPIOE ((GPIO_TypeDef *)GPIOE_BASEADDR)
 
-#define RCC ((RCC_RegDef_t *)RCC_BASEADDR)
+#define RCC ((RCC_TypeDef *)RCC_BASEADDR)
 
 #endif

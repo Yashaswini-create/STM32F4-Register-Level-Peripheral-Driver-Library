@@ -1,44 +1,73 @@
-# STM32F4 Peripheral Driver Library using Register-Level Programming
+# STM32F4 Register-Level Peripheral Driver Library
 
 ## Overview
-This project demonstrates the development of a GPIO peripheral driver for the STM32F4 microcontroller using direct register-level programming without relying on STM32 HAL GPIO APIs.
+
+A reusable embedded firmware driver library for the STM32F4 microcontroller developed using Register-Level Programming (Memory-Mapped Registers) without using STM32 HAL GPIO APIs.
+
+This project demonstrates how low-level peripheral drivers are built by directly accessing hardware registers, following a modular driver architecture similar to professional embedded firmware projects.
+
+---
 
 ## Features
-- Register-level GPIO programming
-- Peripheral Clock (RCC) enable
+
+- Register-level GPIO Driver
+- RCC Clock Driver
 - GPIO Initialization
-- GPIO Read
-- GPIO Write
-- GPIO Toggle
-- LED Blink Application
+- GPIO Input Reading
+- GPIO Output Control
+- GPIO Pin Toggle
 - Modular Driver Architecture
+- STM32F4 Memory-Mapped Register Programming
 
-## Project Structure
-
-STM32F4_Peripheral_Driver_Library
-│
-├── Drivers
-│   ├── Inc
-│   │   ├── stm32f407xx.h
-│   │   └── gpio.h
-│   └── Src
-│       └── gpio.c
-│
-├── Application
-│   └── main.c
-│
-└── README.md
+---
 
 ## Technologies
+
 - Embedded C
 - STM32F4
 - Register-Level Programming
-- Memory Mapped I/O
-- GPIO Driver Development
+- Memory-Mapped Registers
+- Git & GitHub
+
+---
+
+## Project Structure
+
+```
+Application/
+Drivers/
+    Inc/
+        stm32f407xx.h
+        gpio.h
+        rcc.h
+    Src/
+        gpio.c
+        rcc.c
+README.md
+```
+
+---
+
+## Learning Outcomes
+
+- Understanding STM32 peripheral registers
+- GPIO configuration
+- RCC clock configuration
+- Memory-mapped register programming
+- Modular embedded firmware development
+
+---
 
 ## Future Improvements
+
 - UART Driver
 - SPI Driver
 - I2C Driver
-- External Interrupt Driver
+- Interrupt Support
 - Timer Driver
+
+---
+
+## Author
+
+Yashaswini P

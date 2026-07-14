@@ -1,45 +1,38 @@
 #include "gpio.h"
 
-void GPIO_PeriClockControl(GPIO_RegDef_t *pGPIOx, uint8_t EnorDi)
+void GPIO_Init(GPIO_TypeDef *GPIOx, GPIO_Config_t *GPIO_Config)
 {
-    if (EnorDi)
-    {
-        if (pGPIOx == GPIOA)
-            RCC->AHB1ENR |= (1 << 0);
-        else if (pGPIOx == GPIOB)
-            RCC->AHB1ENR |= (1 << 1);
-    }
+    /* Configure Pin Mode */
+    GPIOx->MODER &= ~(0x3 << (2 * GPIO_Config->PinNumber));
+    GPIOx->MODER |= (GPIO_Config->Mode << (2 * GPIO_Config->PinNumber));
+
+    /* Configure Output Type */
+    GPIOx->OTYPER &= ~(0x1 << GPIO_Config->PinNumber);
+    GPIOx->OTYPER |= (GPIO_Config->OutputType << GPIO_Config->PinNumber);
+
+    /* Configure Speed */
+    GPIOx->OSPEEDR &= ~(0x3 << (2 * GPIO_Config->PinNumber));
+    GPIOx->OSPEEDR |= (GPIO_Config->Speed << (2 * GPIO_Config->PinNumber));
+
+    /* Configure Pull-up/Pull-down */
+    GPIOx->PUPDR &= ~(0x3 << (2 * GPIO_Config->PinNumber));
+    GPIOx->PUPDR |= (GPIO_Config->Pull << (2 * GPIO_Config->PinNumber));
 }
 
-void GPIO_Init(GPIO_Handle_t *pGPIOHandle)
-{
-    GPIO_PeriClockControl(pGPIOHandle->pGPIOx, 1);
-
-    pGPIOHandle->pGPIOx->MODER &= ~(3 << (2 * pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber));
-
-    pGPIOHandle->pGPIOx->MODER |=
-        (pGPIOHandle->GPIO_PinConfig.GPIO_PinMode
-         << (2 * pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber));
-}
-
-void GPIO_DeInit(GPIO_RegDef_t *pGPIOx)
-{
-}
-
-uint8_t GPIO_ReadFromInputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber)
-{
-    return (uint8_t)((pGPIOx->IDR >> PinNumber) & 0x1);
-}
-
-void GPIO_WriteToOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber, uint8_t Value)
+void GPIO_WritePin(GPIO_TypeDef *GPIOx, uint8_t PinNumber, uint8_t Value)
 {
     if (Value)
-        pGPIOx->ODR |= (1 << PinNumber);
+        GPIOx->ODR |= (1 << PinNumber);
     else
-        pGPIOx->ODR &= ~(1 << PinNumber);
+        GPIOx->ODR &= ~(1 << PinNumber);
 }
 
-void GPIO_ToggleOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber)
+uint8_t GPIO_ReadPin(GPIO_TypeDef *GPIOx, uint8_t PinNumber)
 {
-    pGPIOx->ODR ^= (1 << PinNumber);
+    return (GPIOx->IDR >> PinNumber) & 0x1;
+}
+
+void GPIO_TogglePin(GPIO_TypeDef *GPIOx, uint8_t PinNumber)
+{
+    GPIOx->ODR ^= (1 << PinNumber);
 }

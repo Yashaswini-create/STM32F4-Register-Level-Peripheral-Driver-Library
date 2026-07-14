@@ -1,21 +1,26 @@
-#include "gpio.h"
+#include "../Drivers/Inc/gpio.h"
 
 int main(void)
 {
-    GPIO_Handle_t GpioLed;
+    GPIO_Config_t led;
 
-    GpioLed.pGPIOx = GPIOA;
+    /* Enable GPIOA Clock */
+    RCC_GPIOA_CLK_ENABLE();
 
-    GpioLed.GPIO_PinConfig.GPIO_PinNumber = 5;
-    GpioLed.GPIO_PinConfig.GPIO_PinMode = 1;
+    /* Configure PA5 as Output */
+    led.PinNumber = 5;
+    led.Mode = GPIO_MODE_OUTPUT;
+    led.Speed = GPIO_SPEED_HIGH;
+    led.Pull = GPIO_NO_PUPD;
+    led.OutputType = GPIO_OTYPE_PP;
 
-    GPIO_Init(&GpioLed);
+    GPIO_Init(GPIOA, &led);
 
     while (1)
     {
-        GPIO_ToggleOutputPin(GPIOA, 5);
+        GPIO_TogglePin(GPIOA, 5);
 
-        for (volatile int i = 0; i < 500000; i++)
+        for (volatile uint32_t i = 0; i < 500000; i++)
             ;
     }
 }
