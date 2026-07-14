@@ -1,0 +1,10 @@
+build/
+Debug/
+Release/
+.settings/
+.project
+.cproject
+*.o
+*.elf
+*.bin
+*.hex
